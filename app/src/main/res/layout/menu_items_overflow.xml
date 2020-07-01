@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="130dp"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@drawable/popup_bg"
+    android:orientation="vertical"
+    android:paddingLeft="13dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/letterTV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/ic_letter"
+        android:drawablePadding="12dp"
+        android:drawableTint="?attr/dialog_icon"
+        android:fontFamily="@font/light"
+        android:gravity="center|start"
+        android:text="@string/send_message_to_author"
+        android:textColor="?attr/textcolor"
+        android:textSize="17sp" />
+
+
+    <TextView
+        android:id="@+id/shareTV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/ic_share"
+        android:drawablePadding="12dp"
+        android:drawableTint="?attr/dialog_icon"
+        android:fontFamily="@font/light"
+        android:gravity="center|start"
+        android:text="@string/share_app"
+        android:textColor="?attr/textcolor"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/sendTV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/ic_send"
+        android:drawablePadding="12dp"
+        android:drawableTint="?attr/dialog_icon"
+        android:fontFamily="@font/light"
+        android:gravity="center|start"
+        android:text="@string/i_need_app"
+        android:textColor="?attr/textcolor"
+        android:textSize="17sp" />
+
+
+</LinearLayout>

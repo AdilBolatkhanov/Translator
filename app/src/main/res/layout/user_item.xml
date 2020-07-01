@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginBottom="5dp"
+    android:background="?attr/backgroundcolor"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/numberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:textColor="?attr/textcolor"
+        android:textSize="16sp"
+        tools:text="21" />
+
+    <ImageView
+        android:id="@+id/userImageRecycler"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/nameUserTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular"
+        android:paddingLeft="6dp"
+        android:textColor="?attr/textcolor"
+        android:textSize="16sp"
+        tools:text="Adil Bolatkhanov" />
+
+    <TextView
+        android:id="@+id/quantityUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular"
+        android:gravity="right"
+        android:paddingLeft="35dp"
+        android:paddingRight="20dp"
+        android:textColor="?attr/textcolor"
+        android:textSize="16sp"
+        tools:text="4325" />
+
+    <TextView
+        android:id="@+id/timeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular"
+        android:gravity="right"
+        android:paddingLeft="16dp"
+        android:textColor="?attr/textcolor"
+        android:textSize="16sp"
+        tools:text="12 мин" />
+
+
+</LinearLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/fav_back"
+    android:orientation="vertical"
+    tools:context=".fragments.SearchFragment">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/lines" />
+
+    <EditText
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="14dp"
+        android:background="@drawable/videoview_bg"
+        android:drawableLeft="@drawable/ic_search_black_24dp"
+        android:drawablePadding="10dp"
+        android:drawableTint="?attr/search_icon"
+        android:fontFamily="@font/regular"
+        android:gravity="center_vertical"
+        android:hint="@string/search"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/search_icon"
+        android:textSize="16sp"
+
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/videoAndAudioRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+</LinearLayout>

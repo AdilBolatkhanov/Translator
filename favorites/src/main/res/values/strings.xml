@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Translator</string>
+    <string name="translator">Translator</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rus_eng">Рус - Eng</string>
+    <string name="eng_rus">Eng - Рус</string>
+    <string name="search_title">Search</string>
+    <string name="exit">Exit</string>
+    <string name="Auth">Make authorization</string>
+    <string name="translated_word_count">Translated word count:</string>
+    <string name="total_time_in_app">Total time in app:</string>
+    <string name="search">Search</string>
+    <string name="enter_smth_in_kazakh">Enter smth in kazakh</string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
+    <string name="delete">Delete</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="send_message_to_author">Send message to author</string>
+    <string name="share_app">Share app</string>
+    <string name="i_need_app">I need app</string>
+</resources>

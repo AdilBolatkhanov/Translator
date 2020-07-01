@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="100dp"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@drawable/popup_bg"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingTop="8dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/ruEngTV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/light"
+        android:gravity="center"
+        android:text="@string/rus_eng"
+        android:textColor="?attr/tintcolor"
+
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CECECE" />
+
+    <TextView
+        android:id="@+id/engRusTx"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/light"
+        android:gravity="center"
+        android:text="@string/eng_rus"
+        android:textColor="?attr/tintcolor"
+        android:textSize="17sp" />
+
+
+</LinearLayout>

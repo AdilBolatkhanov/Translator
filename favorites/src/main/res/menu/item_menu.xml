@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <group>
+        <item
+            android:id="@+id/koshiry"
+            android:icon="@drawable/ic_copy"
+            android:iconTint="?attr/dialog_icon"
+            android:title="Kóshіrý" />
+
+        <item
+            android:id="@+id/bolisy"
+            android:icon="@drawable/ic_share"
+            android:iconTint="?attr/dialog_icon"
+            android:title="Bólіsý" />
+
+        <item
+            android:id="@+id/oshiry"
+            android:icon="@drawable/ic_del"
+            android:iconTint="?attr/dialog_icon"
+            android:title="Óshіrý" />
+
+        <item
+            android:id="@+id/unagan"
+            android:icon="@drawable/ic_love"
+            android:iconTint="?attr/tintcolor"
+            android:title="Unaǵandar tіzіmіne qosý" />
+    </group>
+
+
+</menu>

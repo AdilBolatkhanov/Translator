@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="14dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/placeholderImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/video_placeholder"
+
+            />
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="6dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:max="100"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="?attr/tintcolor" />
+
+        <TextView
+            android:id="@+id/titleTopTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:elevation="4dp"
+            android:fontFamily="@font/light"
+            android:paddingHorizontal="18dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/seekBar"
+            android:layout_alignRight="@+id/seekBar"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/light"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:text="12:00 12:00" />
+
+
+        <TextView
+            android:id="@+id/titleBottomTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/media_bg"
+            android:fontFamily="@font/regular"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:textColor="?attr/textcolor"
+            android:textSize="16sp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/playFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_play_arrow_black_24dp"
+            app:borderWidth="0dp"
+            app:fabCustomSize="60dp"
+            app:maxImageSize="40dp" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

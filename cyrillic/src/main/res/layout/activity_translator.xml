@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/backgroundcolor"
+        android:gravity="left"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        app:title=""
+        tools:ignore="RtlHardcoded">
+
+        <ImageView
+            android:id="@+id/day_night"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_moon"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/toolbarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:fontFamily="@font/regular"
+            android:textColor="?attr/headercolor"
+            android:textSize="22sp"
+
+            />
+
+        <ImageView
+            android:id="@+id/overflowToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_overflow"
+            android:tint="?attr/tintcolor" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/toolbar"
+        android:background="?attr/tintcolor" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/backgroundcolor"
+        app:elevation="4dp"
+        app:itemIconTint="@drawable/bottombar"
+        app:itemRippleColor="?attr/tintcolor"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_menu" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/nav_view"
+        android:layout_below="@id/toolbar">
+
+    </FrameLayout>
+
+
+</RelativeLayout>

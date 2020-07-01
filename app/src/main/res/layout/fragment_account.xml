@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundcolor">
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        tools:context=".fragments.AccountFragment">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="?attr/tintcolor" />
+
+
+        <ImageView
+            android:id="@+id/imageTurtle"
+            android:layout_width="300dp"
+            android:layout_height="270dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cherepaha"
+            android:tint="?attr/tintcolor" />
+
+        <TextView
+            android:id="@+id/autorithationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageTurtle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/bold"
+            android:padding="10dp"
+            android:text="@string/Auth"
+            android:textColor="?attr/textcolor"
+            android:textSize="16sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="6dp">
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autorithationTextView"
+            android:layout_centerHorizontal="true" />
+
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/bold"
+            android:padding="10dp"
+            android:textColor="?attr/textcolor"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameTextView"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/bold"
+            android:padding="10dp"
+            android:textColor="?attr/textcolor"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabStatistics"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@id/emailTextView"
+            android:visibility="gone"
+            app:layout_collapseMode="pin"
+            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabIndicatorGravity="bottom"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="?attr/textcolor"
+            app:tabTextAppearance="@style/TabLayoutTextAppearance"
+            app:tabTextColor="?attr/textcolor" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tabStatistics"
+            android:visibility="gone" />
+
+
+        <Button
+            android:id="@+id/exitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewPager"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="?attr/account_bg"
+            android:elevation="6dp"
+            android:fontFamily="@font/regular"
+            android:paddingLeft="30dp"
+            android:paddingTop="5dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="5dp"
+            android:text="@string/exit"
+            android:textAllCaps="false"
+            android:textColor="#AF2929"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:elevation="6dp" />
+
+    </RelativeLayout>
+</ScrollView>

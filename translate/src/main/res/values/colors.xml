@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#Fff000</color>
+    <color name="white">#FFF</color>
+    <color name="colorAccent">#1789DB</color>
+    <color name="main">#1789DB</color>
+    <color name="text">#808080</color>
+    <color name="lightBlue">#CC1789DB</color>
+    <color name="stroke">#0D000000</color>
+    <color name="fav_text">#393737</color>
+    <color name="snack_bg">#CCD8D8D8</color>
+    <color name="orange">#DB7517</color>
+    <color name="black_bg">#323D4E</color>
+    <color name="video_text_bg">#F6F6F6</color>
+
+</resources>
+
