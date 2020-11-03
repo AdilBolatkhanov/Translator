@@ -20,7 +20,6 @@
 
 ## Screenshots
 
-<img src="screens/splash.svg" width="230"/> <img src="screens/ligh_main.svg" width="230"/> <img src="screens/dark_main.svg" width="230"/>
-<img src="screens/fav.svg" width="230"/>  <img src="screens/translate.svg" width="230"/> 
-<img src="screens/video.svg" width="230"/> <img src="screens/motion.svg" width="230"/> <img src="screens/account.svg" width="230"/> 
-<img src="screens/account_all.svg" width="230"/> <img src="screens/account_statistic.svg" width="230"/>
+<img src="screens/splash.svg" width="230"/> <img src="screens/cyrillicLight.jpg" width="230"/> <img src="screens/cyrillicDark.jpg" width="230"/>  <img src="screens/translate.jpg" width="230"/> 
+<img src="screens/search.jpg" width="230"/> <img src="screens/searchDetail.jpg" width="230"/> <img src="screens/auth.jpg" width="230"/> 
+<img src="screens/statind.jpg" width="230"/> <img src="screens/statgen.jpg" width="230"/>
