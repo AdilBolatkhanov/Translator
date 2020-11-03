@@ -157,7 +157,7 @@ class TranslateFragment : BaseFragment<TranslateContract.View, TranslateContract
         } else {
             containerRel.background = resources.getDrawable(R.drawable.background)
         }
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Audary"
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Translate"
     }
 
     private fun setupToolbarActions(){

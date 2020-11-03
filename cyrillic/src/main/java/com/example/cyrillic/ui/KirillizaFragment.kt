@@ -151,7 +151,6 @@ class KirillizaFragment : Fragment() {
         initialSetup()
         setPopupMenu()
 
-
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         conversation.layoutManager = layoutManager
@@ -240,7 +239,7 @@ class KirillizaFragment : Fragment() {
         } else {
             containerRel.background = resources.getDrawable(R.drawable.background)
         }
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Кириллица - Latynsha"
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Cyrillic - Latin"
         (activity as AppCompatActivity).findViewById<ImageView>(R.id.overflowToolbar)
             .setImageResource(R.drawable.ic_overflow)
         val textView = (activity as AppCompatActivity).findViewById<TextView>(R.id.exchangeTextView)

@@ -5,19 +5,19 @@
         android:id="@+id/hat"
         android:icon="@drawable/ic_letter"
         android:iconTint="?attr/dialog_icon"
-        android:title="Avtorǵa hat jazý" />
+        android:title="Write letter to author" />
 
     <item
         android:id="@+id/bolisyQos"
         android:icon="@drawable/ic_share"
         android:iconTint="?attr/dialog_icon"
-        android:title="Qosymshamen bólіsý" />
+        android:title="Share with others" />
 
     <item
         android:id="@+id/qosymsha"
         android:icon="@drawable/ic_send"
         android:iconTint="?attr/dialog_icon"
-        android:title="Maǵan qosymsha kerek" />
+        android:title="I need update" />
 
 
 </menu>

@@ -8,25 +8,25 @@
             android:id="@+id/koshiry"
             android:icon="@drawable/ic_copy"
             android:iconTint="?attr/dialog_icon"
-            android:title="Kóshіrý" />
+            android:title="Copy" />
 
         <item
             android:id="@+id/bolisy"
             android:icon="@drawable/ic_share"
             android:iconTint="?attr/dialog_icon"
-            android:title="Bólіsý" />
+            android:title="Share" />
 
         <item
             android:id="@+id/oshiry"
             android:icon="@drawable/ic_del"
             android:iconTint="?attr/dialog_icon"
-            android:title="Óshіrý" />
+            android:title="Delete" />
 
         <item
             android:id="@+id/unagan"
             android:icon="@drawable/ic_love"
             android:iconTint="?attr/tintcolor"
-            android:title="Unaǵandar tіzіmіne qosý" />
+            android:title="Add to favorite" />
     </group>
 
 

@@ -74,7 +74,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun initialSetup(){
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Qyzyqty kontent"
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Search"
         (activity as AppCompatActivity).findViewById<ImageView>(R.id.overflowToolbar)
             .setImageResource(R.drawable.ic_overflow)
         val textView = (activity as AppCompatActivity).findViewById<TextView>(R.id.exchangeTextView)

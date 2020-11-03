@@ -132,7 +132,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun initialSetup(){
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Jeke paraq"
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Account"
         (activity as AppCompatActivity).findViewById<ImageView>(R.id.overflowToolbar)
             .setImageResource(R.drawable.ic_overflow)
         val textView = (activity as AppCompatActivity).findViewById<TextView>(R.id.exchangeTextView)
