@@ -1,4 +1,7 @@
 # Translator
+An app that lets you translate from Russian to English and vice versa (Yandex Translate API), translate
+from Cyrillic to Latin, watch videos, listen to music, and sign in using a Google account to view statistics
+and rating among other users
 
 ## Applied concepts
 * Arch. patterns: MVVM, MVP
