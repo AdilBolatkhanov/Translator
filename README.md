@@ -8,18 +8,15 @@ and rating among other users
 * DI: Koin
 * Jetpack libr: LiveData, ViewModel
 * Network: Retrofit
-* Multithreadin:g RxJava, Coroutines
-* DB: Room
+* Multithreading: RxJava, Coroutines, Executors
+* DB: Room 
 * Firebase Auth and Realtime DB
-* Executors
-* Gson
-* Glide
+* Glide to load images
 * MotionLayout - Animations
 * Splash screen with animation
 * Recycler view with two types of view, touch listener - dragging, search in recycler. +DiffUtil.Callback
-* Translation from Cirillic to Latin
 * Day/Night theme
-* CustomView
+* CustomView for audio and video
 
 ## Screenshots
 
