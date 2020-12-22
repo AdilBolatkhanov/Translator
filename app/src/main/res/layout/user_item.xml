@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/regular"
         android:gravity="right"
-        android:paddingLeft="35dp"
+        android:paddingLeft="30dp"
         android:paddingRight="20dp"
         android:textColor="?attr/text_color"
         android:textSize="16sp"
@@ -57,6 +57,4 @@
         android:textColor="?attr/text_color"
         android:textSize="16sp"
         tools:text="12 мин" />
-
-
 </LinearLayout>

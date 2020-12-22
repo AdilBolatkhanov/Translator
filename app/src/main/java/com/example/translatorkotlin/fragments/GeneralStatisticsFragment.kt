@@ -18,6 +18,7 @@ import com.example.common.data.User
 import com.example.translatorkotlin.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -26,23 +27,64 @@ import kotlinx.android.synthetic.main.fragment_general_statistics.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class GeneralStatisticsFragment : Fragment() {
+class GeneralStatisticsFragment : Fragment(R.layout.fragment_general_statistics) {
     private val database = Firebase.database
     private var sortByQuant = true
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_general_statistics, container, false)
-    }
+    private lateinit var valueEventListener: ValueEventListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = GeneralStatAdapter()
-        recyclerUsers.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerUsers.adapter = adapter
+        val adapter = setupRecycler()
         val myRef = database.getReference("users")
+        setupValueListener(adapter)
+        myRef.addValueEventListener(valueEventListener)
 
-        val valueEventListener = object : ValueEventListener {
+        setOnClickListeners(myRef)
+    }
+
+    private fun setOnClickListeners(myRef: DatabaseReference) {
+        textSortImage.setImageDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.ic_text_sort_active
+            )
+        )
+        timeSortImage.setOnClickListener {
+            sortByQuant = false
+            timeSortImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_time_sort_active
+                )
+            )
+            textSortImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_text_sort
+                )
+            )
+            myRef.addValueEventListener(valueEventListener)
+        }
+        textSortImage.setOnClickListener {
+            sortByQuant = true
+            textSortImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_text_sort_active
+                )
+            )
+            timeSortImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_time_sort
+                )
+            )
+            myRef.addValueEventListener(valueEventListener)
+        }
+    }
+
+    private fun setupValueListener(adapter: GeneralStatAdapter) {
+        valueEventListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 Log.d("GeneralStat", "Error in loading data")
             }
@@ -52,41 +94,29 @@ class GeneralStatisticsFragment : Fragment() {
                     val userArrayList = ArrayList<User>()
                     for (child in dataSnapshot.children) {
                         val user: User? = child.getValue<User>()
-                        Log.d("myUsers", user?.name.toString() + " " + user?.email)
                         userArrayList.add(user!!)
                     }
-                    Log.d("SORTING", "SORTING $sortByQuant")
                     if (sortByQuant) {
-                        Collections.sort(userArrayList){ o1, o2 ->
+                        userArrayList.sortWith(Comparator { o1, o2 ->
                             o2.countWords!!.compareTo(o1.countWords!!)
-                        }
-                        //userArrayList.sortWith(Comparator { o1, o2 -> o2.countWords!!.compareTo(o1.countWords!!) })
+                        })
                     } else {
-                        Collections.sort(userArrayList){ o1, o2 ->
+                        userArrayList.sortWith(Comparator { o1, o2 ->
                             o2.time!!.compareTo(o1.time!!)
-                        }
+                        })
                     }
                     adapter.setUserList(userArrayList, context!!)
                 }
             }
         }
+    }
 
-        textSortImage.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_text_sort_active))
-        myRef.addValueEventListener(valueEventListener)
-        timeSortImage.setOnClickListener {
-            sortByQuant = false
-            Log.d("CLICKADIL","timeSORT $sortByQuant")
-            timeSortImage.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_time_sort_active))
-            textSortImage.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_text_sort))
-            myRef.addValueEventListener(valueEventListener)
-        }
-        textSortImage.setOnClickListener {
-            sortByQuant = true
-            Log.d("CLICKADIL","textSORT $sortByQuant")
-            textSortImage.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_text_sort_active))
-            timeSortImage.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_time_sort))
-            myRef.addValueEventListener(valueEventListener)
-        }
+    private fun setupRecycler(): GeneralStatAdapter {
+        val adapter = GeneralStatAdapter()
+        recyclerUsers.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerUsers.adapter = adapter
+        return adapter
     }
 
     class GeneralStatAdapter : RecyclerView.Adapter<GeneralStatAdapter.ViewHolder>() {

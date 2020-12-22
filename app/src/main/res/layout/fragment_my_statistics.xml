@@ -27,9 +27,7 @@
         android:fontFamily="@font/regular"
         android:gravity="right"
         android:textColor="?attr/text_color"
-        android:textSize="16sp"
-
-        />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/timeTitle"
