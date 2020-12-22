@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
@@ -21,8 +22,11 @@ import com.example.translatorkotlin.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -49,41 +53,18 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     private var sharedPreferences: SharedPreferences? = null
     private val database = Firebase.database
 
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialSetup()
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        if (sharedPreferences!!.getBoolean(AUTH, false)) {
-            imageTurtle.visibility = View.GONE
-            autorithationTextView.visibility = View.GONE
-            signInButton.visibility = View.GONE
-            userImage.visibility = View.VISIBLE
-            cardView.visibility = View.VISIBLE
-            emailTextView.visibility = View.VISIBLE
-            nameTextView.visibility = View.VISIBLE
-            exitBtn.visibility = View.VISIBLE
-            tabStatistics.visibility = View.VISIBLE
-            viewPager.visibility = View.VISIBLE
-
-            emailTextView.text = sharedPreferences!!.getString(EMAIL, "")
-            nameTextView.text = sharedPreferences!!.getString(NAME, "")
-            val url = sharedPreferences!!.getString(URL_ACC, "")
-            Glide.with(requireContext()).load(url).into(userImage)
-
-            setTime()
-
-            val adapter = ViewPagerAdapter(activity as MainActivity)
-            viewPager.adapter = adapter
-            TabLayoutMediator(tabStatistics, viewPager) { tab, position ->
-                tab.text = adapter.getTitle(position)
-            }.attach()
-        }
-
+        checkAuthorization()
         readFromFBDB()
+        setListeners()
+    }
 
+    private fun setListeners() {
         signInButton.setOnClickListener {
             signIn()
         }
@@ -91,23 +72,40 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         exitBtn.setOnClickListener {
             firebaseAuth?.signOut()
             sharedPreferences!!.edit().putBoolean(AUTH, false).apply()
-            imageTurtle.visibility = View.VISIBLE
-            autorithationTextView.visibility = View.VISIBLE
-            signInButton.visibility = View.VISIBLE
-            userImage.visibility = View.GONE
-            cardView.visibility = View.GONE
-            emailTextView.visibility = View.GONE
-            nameTextView.visibility = View.GONE
-            exitBtn.visibility = View.GONE
-            tabStatistics.visibility = View.GONE
-            viewPager.visibility = View.GONE
+            changeVisibilityAuthorized(false)
         }
+    }
+
+    private fun checkAuthorization() {
+        if (sharedPreferences!!.getBoolean(AUTH, false)) {
+            changeVisibilityAuthorized(true)
+
+            emailTextView.text = sharedPreferences!!.getString(EMAIL, "")
+            nameTextView.text = sharedPreferences!!.getString(NAME, "")
+            val url = sharedPreferences!!.getString(URL_ACC, "")
+            Glide.with(requireContext()).load(url).into(userImage)
+
+            setTime()
+            setupTabLayout()
+        }
+    }
+
+    private fun changeVisibilityAuthorized(authorized: Boolean) {
+        imageTurtle.isVisible = !authorized
+        autorithationTextView.isVisible = !authorized
+        signInButton.isVisible = !authorized
+        userImage.isVisible = authorized
+        cardView.isVisible = authorized
+        emailTextView.isVisible = authorized
+        nameTextView.isVisible = authorized
+        exitBtn.isVisible = authorized
+        tabStatistics.isVisible = authorized
+        viewPager.isVisible = authorized
     }
 
     private fun setTime() {
         val start =
-            sharedPreferences!!.getString(STARTTIME, "0")!!
-                .toLong()
+            sharedPreferences!!.getString(STARTTIME, "0")!!.toLong()
         val end = System.currentTimeMillis()
         val total = end - start
         val minutes = TimeUnit.MILLISECONDS.toMinutes(total)
@@ -122,8 +120,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             "$totalTime"
         )
         val newStart = System.currentTimeMillis()
-        sharedPreferences!!.edit().putString(TIME, totalTime.toString() + "")
-            .putString(STARTTIME, newStart.toString() + "").apply()
+        sharedPreferences!!.edit().putString(TIME, "$totalTime")
+            .putString(STARTTIME, "$newStart").apply()
     }
 
     private fun initialSetup() {
@@ -178,89 +176,98 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 val account = task.getResult(ApiException::class.java)
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
 
-                firebaseAuth?.signInWithCredential(credential)
+                firebaseAuth
+                    ?.signInWithCredential(credential)
                     ?.addOnCompleteListener { authResult ->
-                        if (authResult.isSuccessful) {
-                            imageTurtle.visibility = View.GONE
-                            autorithationTextView.visibility = View.GONE
-                            signInButton.visibility = View.GONE
-                            firebaseAuth?.currentUser?.let { user ->
-                                user.getIdToken(true).addOnCompleteListener { result ->
-                                    result.result?.token
-                                    nameTextView.text = user.displayName
-                                    emailTextView.text = user.email
-                                    Glide.with(requireContext()).load(user.photoUrl)
-                                        .into(userImage)
-                                    sharedPreferences!!.edit().putString(NAME, user.displayName)
-                                        .putString(EMAIL, user.email)
-                                        .putString(USER_ID, user.uid)
-                                        .putString(URL_ACC, user.photoUrl.toString())
-                                        .putBoolean(AUTH, true)
-                                        .apply()
-                                    if (!sharedPreferences!!.contains(QUANTITY) || !sharedPreferences!!.contains(
-                                            TIME
-                                        )
-                                    ) {
-                                        val myRef = database.getReference("users").child(user.uid)
-                                        myRef.addListenerForSingleValueEvent(object :
-                                            ValueEventListener {
-                                            override fun onCancelled(error: DatabaseError) {
-                                                Log.e("AccountFragment", error.message)
-                                            }
-
-                                            override fun onDataChange(snapshot: DataSnapshot) {
-                                                if (snapshot.value != null) {
-                                                    val userFromDb = snapshot.getValue<User>()
-                                                    val count: String? = userFromDb!!.countWords
-                                                    val time: String? = userFromDb.time
-                                                    sharedPreferences!!.edit()
-                                                        .putInt(QUANTITY, count!!.toInt())
-                                                        .putString(TIME, time).apply()
-                                                }
-                                            }
-                                        })
-                                    }
-
-                                    val quantity =
-                                        sharedPreferences!!.getInt(QUANTITY, 0)
-                                    val time = sharedPreferences!!.getString(TIME, "0")
-
-                                    val start: Long = System.currentTimeMillis()
-                                    sharedPreferences!!.edit()
-                                        .putString(STARTTIME, start.toString() + "")
-                                        .apply()
-
-                                    (activity as MainActivity).writeToFBDB(
-                                        user.uid,
-                                        user.displayName!!,
-                                        user.email!!,
-                                        user.photoUrl.toString(),
-                                        "$quantity",
-                                        time!!
-                                    )
-                                    userImage.visibility = View.VISIBLE
-                                    cardView.visibility = View.VISIBLE
-                                    emailTextView.visibility = View.VISIBLE
-                                    nameTextView.visibility = View.VISIBLE
-                                    exitBtn.visibility = View.VISIBLE
-                                    tabStatistics.visibility = View.VISIBLE
-                                    viewPager.visibility = View.VISIBLE
-
-                                    val adapter = ViewPagerAdapter(activity as MainActivity)
-                                    viewPager.adapter = adapter
-                                    TabLayoutMediator(tabStatistics, viewPager) { tab, position ->
-                                        tab.text = adapter.getTitle(position)
-                                    }.attach()
-                                }
-                            }
-                        } else {
-                            Log.e("SigIn", "Failure signInWithCredential")
-                        }
+                        changeVisibilityAuthorized(authResult.isSuccessful)
+                        handleAuthResult(authResult)
                     }
             } catch (e: ApiException) {
                 Log.e(e.toString(), "Google sign in failed")
             }
         }
+    }
+
+    private fun handleAuthResult(authResult: Task<AuthResult>) {
+        if (authResult.isSuccessful) {
+            firebaseAuth?.currentUser?.let { user ->
+                user.getIdToken(true).addOnCompleteListener { result ->
+                    result.result?.token
+                    updateUserInfo(user)
+                    getValuesOfExistingUsers(user)
+
+                    updateValuesOfUsersToDb(user)
+                    setupTabLayout()
+                }
+            }
+        } else {
+            Log.e("SigIn", "Failure signInWithCredential")
+        }
+    }
+
+    private fun updateValuesOfUsersToDb(user: FirebaseUser) {
+        val quantity = sharedPreferences!!.getInt(QUANTITY, 0)
+        val time = sharedPreferences!!.getString(TIME, "0")
+
+        val start: Long = System.currentTimeMillis()
+        sharedPreferences!!.edit()
+            .putString(STARTTIME, "$start")
+            .apply()
+
+        (activity as MainActivity).writeToFBDB(
+            user.uid,
+            user.displayName!!,
+            user.email!!,
+            user.photoUrl.toString(),
+            "$quantity",
+            time!!
+        )
+    }
+
+    private fun getValuesOfExistingUsers(user: FirebaseUser) {
+        if (!sharedPreferences!!.contains(QUANTITY) ||
+            !sharedPreferences!!.contains(TIME)
+        ) {
+            val myRef = database.getReference("users").child(user.uid)
+            myRef.addListenerForSingleValueEvent(object :
+                ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("AccountFragment", error.message)
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.value != null) {
+                        val userFromDb = snapshot.getValue<User>()
+                        val count: String? = userFromDb!!.countWords
+                        val time: String? = userFromDb.time
+                        sharedPreferences!!.edit()
+                            .putInt(QUANTITY, count!!.toInt())
+                            .putString(TIME, time).apply()
+                    }
+                }
+            })
+        }
+    }
+
+    private fun setupTabLayout() {
+        val adapter = ViewPagerAdapter(activity as MainActivity)
+        viewPager.adapter = adapter
+        TabLayoutMediator(tabStatistics, viewPager) { tab, position ->
+            tab.text = adapter.getTitle(position)
+        }.attach()
+    }
+
+    private fun updateUserInfo(user: FirebaseUser) {
+        nameTextView.text = user.displayName
+        emailTextView.text = user.email
+        Glide.with(requireContext()).load(user.photoUrl)
+            .into(userImage)
+        sharedPreferences!!.edit().putString(NAME, user.displayName)
+            .putString(EMAIL, user.email)
+            .putString(USER_ID, user.uid)
+            .putString(URL_ACC, user.photoUrl.toString())
+            .putBoolean(AUTH, true)
+            .apply()
     }
 
     private class ViewPagerAdapter(activity: FragmentActivity) :

@@ -22,11 +22,7 @@ abstract class MyDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): MyDatabase {
             return instance ?: synchronized(this) {
-                instance
-                    ?: buildDatabase(
-                        context
-                    )
-                        .also { instance = it }
+                instance ?: buildDatabase(context).also { instance = it }
             }
         }
 

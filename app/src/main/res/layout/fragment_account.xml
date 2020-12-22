@@ -17,7 +17,6 @@
             android:layout_alignParentTop="true"
             android:background="?attr/tint_color" />
 
-
         <ImageView
             android:id="@+id/imageTurtle"
             android:layout_width="300dp"
@@ -67,7 +66,6 @@
             android:layout_below="@+id/autorithationTextView"
             android:layout_centerHorizontal="true" />
 
-
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
@@ -114,13 +112,12 @@
             android:layout_below="@id/tabStatistics"
             android:visibility="gone" />
 
-
         <Button
             android:id="@+id/exitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/viewPager"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:background="?attr/account_bg"

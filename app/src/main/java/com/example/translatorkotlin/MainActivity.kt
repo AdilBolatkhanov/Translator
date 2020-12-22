@@ -33,8 +33,8 @@ private const val RESTART = "Restart"
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var myFragment: Fragment
-    lateinit var themePref: SharedPreferences
-    lateinit var sharedPreferences: SharedPreferences
+    private lateinit var themePref: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private val database = Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,12 +128,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.hat -> {
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.data = Uri.parse("mailto:")
-                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("kwenten@mail.ru"))
-                    if (intent.resolveActivity(packageManager) != null) {
-                        startActivity(intent)
-                    }
+                    sendMail()
                     true
                 }
                 R.id.bolisyQos -> true
@@ -143,10 +138,19 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
 
         val menuPopupHelper = MenuPopupHelper(wrapper, popupMenu.menu as MenuBuilder, toolbar)
-        menuPopupHelper.gravity = Gravity.RIGHT
+        menuPopupHelper.gravity = Gravity.END
         menuPopupHelper.setForceShowIcon(true)
         overflowToolbar.setOnClickListener {
             menuPopupHelper.show()
+        }
+    }
+
+    private fun sendMail() {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("kwenten@mail.ru"))
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
         }
     }
 
@@ -197,10 +201,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var selectedFragment: Fragment? = null
         when (item.itemId) {
             R.id.translateFragment -> selectedFragment = TranslateFragment()
-            R.id.favoriteFragment -> selectedFragment =
-                FavoriteFragment()
-            R.id.kirillizaFragment -> selectedFragment =
-                KirillizaFragment()
+            R.id.favoriteFragment -> selectedFragment = FavoriteFragment()
+            R.id.kirillizaFragment -> selectedFragment = KirillizaFragment()
             R.id.searchFragment -> selectedFragment = SearchFragment()
             R.id.accountFragment -> selectedFragment = AccountFragment()
         }
