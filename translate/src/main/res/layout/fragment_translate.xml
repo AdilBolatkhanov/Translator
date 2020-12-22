@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/containerRel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,14 +37,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?attr/backgroundcolor"
+        android:background="?attr/background_color"
         android:fontFamily="@font/regular"
         android:gravity="center_vertical"
         android:hint="Enter smth here"
         android:paddingHorizontal="16dp"
         android:paddingVertical="15dp"
-        android:textColor="?attr/textcolor"
-        android:textColorHint="?attr/headercolor"
+        android:textColor="?attr/text_color"
+        android:textColorHint="?attr/header_color"
         android:textSize="16sp" />
 
     <ImageView
@@ -57,7 +56,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/ic_arrow"
-        android:backgroundTint="?attr/tintcolor" />
+        android:backgroundTint="?attr/tint_color" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/scrollFAB"
@@ -69,10 +68,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="?attr/backgroundcolor"
+        android:backgroundTint="?attr/background_color"
         android:src="@drawable/ic_scroll"
-        android:tint="?attr/tintcolor"
-        app:backgroundTint="?attr/backgroundcolor"
+        android:tint="?attr/tint_color"
+        app:backgroundTint="?attr/background_color"
         app:borderWidth="0dp"
         app:elevation="4dp"
         app:fabCustomSize="48dp" />

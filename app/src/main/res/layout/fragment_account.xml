@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundcolor">
+    android:background="?attr/background_color">
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentTop="true"
-            android:background="?attr/tintcolor" />
+            android:background="?attr/tint_color" />
 
 
         <ImageView
@@ -27,7 +27,7 @@
             android:layout_marginTop="30dp"
             android:scaleType="fitCenter"
             android:src="@drawable/cherepaha"
-            android:tint="?attr/tintcolor" />
+            android:tint="?attr/tint_color" />
 
         <TextView
             android:id="@+id/autorithationTextView"
@@ -40,7 +40,7 @@
             android:fontFamily="@font/bold"
             android:padding="10dp"
             android:text="@string/Auth"
-            android:textColor="?attr/textcolor"
+            android:textColor="?attr/text_color"
             android:textSize="16sp" />
 
         <androidx.cardview.widget.CardView
@@ -77,7 +77,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/bold"
             android:padding="10dp"
-            android:textColor="?attr/textcolor"
+            android:textColor="?attr/text_color"
             android:textSize="16sp"
             android:visibility="gone" />
 
@@ -89,7 +89,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/bold"
             android:padding="10dp"
-            android:textColor="?attr/textcolor"
+            android:textColor="?attr/text_color"
             android:textSize="16sp"
             android:visibility="gone" />
 
@@ -103,9 +103,9 @@
             app:tabIndicatorColor="?attr/colorAccent"
             app:tabIndicatorGravity="bottom"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="?attr/textcolor"
+            app:tabSelectedTextColor="?attr/text_color"
             app:tabTextAppearance="@style/TabLayoutTextAppearance"
-            app:tabTextColor="?attr/textcolor" />
+            app:tabTextColor="?attr/text_color" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <group>
@@ -25,7 +24,7 @@
         <item
             android:id="@+id/unagan"
             android:icon="@drawable/ic_love"
-            android:iconTint="?attr/tintcolor"
+            android:iconTint="?attr/tint_color"
             android:title="Unaǵandar tіzіmіne qosý" />
     </group>
 

@@ -5,9 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -46,13 +44,10 @@ const val AUTH = "auth"
 const val QUANTITY = "quantity"
 const val STARTTIME = "start"
 
-class AccountFragment : Fragment() {
+class AccountFragment : Fragment(R.layout.fragment_account) {
     private var firebaseAuth: FirebaseAuth? = null
     private var sharedPreferences: SharedPreferences? = null
     private val database = Firebase.database
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
-            View? { return inflater.inflate(R.layout.fragment_account, container, false) }
 
 
     @SuppressLint("SetTextI18n")
@@ -109,7 +104,7 @@ class AccountFragment : Fragment() {
         }
     }
 
-    private fun setTime(){
+    private fun setTime() {
         val start =
             sharedPreferences!!.getString(STARTTIME, "0")!!
                 .toLong()
@@ -131,7 +126,7 @@ class AccountFragment : Fragment() {
             .putString(STARTTIME, newStart.toString() + "").apply()
     }
 
-    private fun initialSetup(){
+    private fun initialSetup() {
         (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Account"
         (activity as AppCompatActivity).findViewById<ImageView>(R.id.overflowToolbar)
             .setImageResource(R.drawable.ic_overflow)

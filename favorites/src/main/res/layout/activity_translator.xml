@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/backgroundcolor"
+        android:background="?attr/background_color"
         android:gravity="left"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:fontFamily="@font/regular"
-            android:textColor="?attr/headercolor"
+            android:textColor="?attr/header_color"
             android:textSize="22sp"
 
             />
@@ -46,7 +46,7 @@
             android:layout_marginRight="10dp"
             android:padding="10dp"
             android:src="@drawable/ic_overflow"
-            android:tint="?attr/tintcolor" />
+            android:tint="?attr/tint_color" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -55,17 +55,17 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/toolbar"
-        android:background="?attr/tintcolor" />
+        android:background="?attr/tint_color" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?attr/backgroundcolor"
+        android:background="?attr/background_color"
         app:elevation="4dp"
         app:itemIconTint="@drawable/bottombar"
-        app:itemRippleColor="?attr/tintcolor"
+        app:itemRippleColor="?attr/tint_color"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_menu" />
 

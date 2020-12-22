@@ -4,5 +4,5 @@
         android:topLeftRadius="25dp"
         android:bottomLeftRadius="25dp"/>
 
-    <solid android:color="?attr/mebubble"/>
+    <solid android:color="?attr/me_bubble" />
 </shape>

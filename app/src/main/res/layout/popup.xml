@@ -20,7 +20,7 @@
         android:fontFamily="@font/light"
         android:gravity="center|start"
         android:text="@string/copy"
-        android:textColor="?attr/textcolor"
+        android:textColor="?attr/text_color"
         android:textSize="17sp" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:fontFamily="@font/light"
         android:gravity="center|start"
         android:text="@string/share"
-        android:textColor="?attr/textcolor"
+        android:textColor="?attr/text_color"
         android:textSize="17sp" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:fontFamily="@font/light"
         android:gravity="center|start"
         android:text="@string/delete"
-        android:textColor="?attr/textcolor"
+        android:textColor="?attr/text_color"
         android:textSize="17sp" />
 
     <TextView
@@ -58,11 +58,11 @@
         android:layout_weight="1"
         android:drawableLeft="@drawable/ic_love"
         android:drawablePadding="12dp"
-        android:drawableTint="?attr/tintcolor"
+        android:drawableTint="?attr/tint_color"
         android:fontFamily="@font/light"
         android:gravity="center|start"
         android:text="@string/add_to_favorites"
-        android:textColor="?attr/tintcolor"
+        android:textColor="?attr/tint_color"
         android:textSize="17sp" />
 
 

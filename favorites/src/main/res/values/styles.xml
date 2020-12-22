@@ -8,12 +8,12 @@
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="textcolor">@color/fav_text</item>
-        <item name="backgroundcolor">@color/white</item>
-        <item name="tintcolor">@color/colorAccent</item>
-        <item name="mebubble">@color/colorAccent</item>
-        <item name="navbartint">#949494</item>
-        <item name="headercolor">@color/text</item>
+        <item name="text_color">@color/fav_text</item>
+        <item name="background_color">@color/white</item>
+        <item name="tint_color">@color/colorAccent</item>
+        <item name="me_bubble">@color/colorAccent</item>
+        <item name="navbar_tint">#949494</item>
+        <item name="header_color">@color/text</item>
         <item name="lines">@color/colorAccent</item>
 
         <item name="fav_back">@color/white</item>
@@ -40,12 +40,12 @@
         <item name="colorPrimaryDark">@color/black_bg</item>
         <item name="colorAccent">@color/orange</item>
 
-        <item name="textcolor">@color/white</item>
-        <item name="backgroundcolor">@color/black_bg</item>
-        <item name="tintcolor">@color/orange</item>
-        <item name="mebubble">#074A46</item>
-        <item name="navbartint">@color/white</item>
-        <item name="headercolor">@color/white</item>
+        <item name="text_color">@color/white</item>
+        <item name="background_color">@color/black_bg</item>
+        <item name="tint_color">@color/orange</item>
+        <item name="me_bubble">#074A46</item>
+        <item name="navbar_tint">@color/white</item>
+        <item name="header_color">@color/white</item>
         <item name="lines">@color/black_bg</item>
 
         <item name="fav_back">#CE323D4E</item>
@@ -74,7 +74,7 @@
         <item name="popupMenuBackground">@drawable/popup_bg</item>
         <item name="android:popupBackground">@drawable/popup_bg</item>
         <item name="popupMenuStyle">@drawable/popup_bg</item>
-        <item name="android:textColor">?attr/textcolor</item>
+        <item name="android:textColor">?attr/text_color</item>
     </style>
 
     <style name="TabLayoutTextAppearance">
@@ -85,7 +85,7 @@
 
     <style name="ToolbarTextViewExchange">
         <item name="android:fontFamily">@font/regular</item>
-        <item name="android:textColor">?attr/tintcolor</item>
+        <item name="android:textColor">?attr/tint_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_marginRight">15dp</item>
         <item name="android:gravity">center_vertical</item>

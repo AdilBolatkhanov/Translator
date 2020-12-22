@@ -22,7 +22,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="12dp"
-            android:background="?attr/tintcolor"
+            android:background="?attr/tint_color"
             android:src="@drawable/ic_play_arrow_black_24dp"
             app:borderWidth="0dp"
             app:fabCustomSize="38dp"
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/regular"
-                android:textColor="?attr/textcolor"
+                android:textColor="?attr/text_color"
                 android:textSize="16sp"
 
                 />
@@ -55,7 +55,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@android:color/transparent"
                 android:max="100"
-                android:progressTint="?attr/tintcolor" />
+                android:progressTint="?attr/tint_color" />
         </LinearLayout>
 
         <TextView
@@ -67,7 +67,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/light"
-            android:textColor="?attr/textcolor"
+            android:textColor="?attr/text_color"
             android:textSize="14sp"
             tools:text="12:00 12:00" />
 

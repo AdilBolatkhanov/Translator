@@ -45,7 +45,7 @@
             android:background="@android:color/transparent"
             android:max="100"
             android:progressBackgroundTint="@color/white"
-            android:progressTint="?attr/tintcolor" />
+            android:progressTint="?attr/tint_color" />
 
         <TextView
             android:id="@+id/titleTopTV"
@@ -82,7 +82,7 @@
             android:fontFamily="@font/regular"
             android:paddingHorizontal="16dp"
             android:paddingVertical="10dp"
-            android:textColor="?attr/textcolor"
+            android:textColor="?attr/text_color"
             android:textSize="16sp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

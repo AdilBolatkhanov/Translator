@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ds">
-        <attr name="textcolor" format="color"></attr>
-        <attr name="backgroundcolor" format="color"></attr>
-        <attr name="tintcolor" format="color"></attr>
-        <attr name="mebubble" format="color"></attr>
-        <attr name="navbartint" format="color" />
-        <attr name="headercolor" format="color" />
+        <attr name="text_color" format="color" />
+        <attr name="background_color" format="color" />
+        <attr name="tint_color" format="color" />
+        <attr name="me_bubble" format="color" />
+        <attr name="navbar_tint" format="color" />
+        <attr name="header_color" format="color" />
         <attr name="lines" format="color" />
         <attr name="fav_back" format="color" />
         <attr name="fav_item" format="color" />
@@ -20,7 +20,6 @@
     </declare-styleable>
 
     <declare-styleable name="VideoPlayerView">
-        <attr name="nameOfVideo" format="string"></attr>
-
+        <attr name="nameOfVideo" format="string" />
     </declare-styleable>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.translatorkotlin
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -39,30 +38,41 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private val database = Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        themePref = applicationContext.getSharedPreferences(THEMEPREF, Context.MODE_PRIVATE)
-        if (themePref.getBoolean(DarkTHEME, false)) {
-            setTheme(R.style.AppThemeDark)
-        } else {
-            setTheme(R.style.AppTheme)
-        }
+        setTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_translator)
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        setupToolbar()
+        setupIcon()
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = ""
+        setListeners()
+        checkSavedState(savedInstanceState)
+        setFragment()
+        setPopupMenu()
+    }
 
-        if (!themePref.contains(DarkTHEME)) {
-            with(themePref.edit()) {
-                putBoolean(DarkTHEME, false)
-                apply()
+    private fun setFragment() {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container,
+            myFragment
+        ).commit()
+    }
+
+    private fun checkSavedState(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            setCorrectFragment(savedInstanceState.getString(LASTFRAGMENT))
+        } else {
+            if (themePref.getBoolean(RESTART, false)) {
+                setCorrectFragment(themePref.getString(LASTFRAGMENT, ""))
+                themePref.edit().putBoolean(RESTART, false).apply()
+            } else {
+                myFragment = KirillizaFragment()
+                nav_view.selectedItemId = R.id.kirillizaFragment
             }
         }
-        if (themePref.getBoolean(DarkTHEME, false)) {
-            day_night.setImageResource(R.drawable.ic_sun)
-        } else day_night.setImageResource(R.drawable.ic_moon)
+    }
 
+    private fun setListeners() {
         day_night.setOnClickListener {
             if (!themePref.getBoolean(DarkTHEME, false)) {
                 with(themePref.edit()) {
@@ -79,22 +89,34 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         nav_view.setOnNavigationItemSelectedListener(this)
-        if (savedInstanceState != null) {
-            setCorrectFragment(savedInstanceState.getString(LASTFRAGMENT))
-        } else {
-            if (themePref.getBoolean(RESTART, false)) {
-                setCorrectFragment(themePref.getString(LASTFRAGMENT, ""))
-                themePref.edit().putBoolean(RESTART, false).apply()
-            } else {
-                myFragment = KirillizaFragment()
-                nav_view.selectedItemId = R.id.kirillizaFragment
+    }
+
+    private fun setupIcon() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        if (!themePref.contains(DarkTHEME)) {
+            with(themePref.edit()) {
+                putBoolean(DarkTHEME, false)
+                apply()
             }
         }
-        supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_container,
-            myFragment
-        ).commit()
-        setPopupMenu()
+        if (themePref.getBoolean(DarkTHEME, false)) {
+            day_night.setImageResource(R.drawable.ic_sun)
+        } else day_night.setImageResource(R.drawable.ic_moon)
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
+    }
+
+    private fun setTheme() {
+        themePref = applicationContext.getSharedPreferences(THEMEPREF, MODE_PRIVATE)
+        if (themePref.getBoolean(DarkTHEME, false)) {
+            setTheme(R.style.AppThemeDark)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
     }
 
     @SuppressLint("RestrictedApi")
@@ -137,10 +159,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             "FavoriteFragment" -> {
                 myFragment = FavoriteFragment()
                 nav_view.selectedItemId = R.id.favoriteFragment
-            }
-            "KirillizaFragment" -> {
-                myFragment = KirillizaFragment()
-                nav_view.selectedItemId = R.id.kirillizaFragment
             }
             "SearchFragment" -> {
                 myFragment = SearchFragment()
