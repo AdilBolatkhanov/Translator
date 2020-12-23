@@ -3,8 +3,8 @@ package com.example.translatorkotlin.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.translatorkotlin.fragments.GeneralStatisticsFragment
-import com.example.translatorkotlin.fragments.MyStatisticsFragment
+import com.example.translatorkotlin.fragments.account.GeneralStatisticsFragment
+import com.example.translatorkotlin.fragments.account.MyStatisticsFragment
 
 class StatisticsViewPagerAdapter(activity: FragmentActivity) :
     FragmentStateAdapter(activity) {

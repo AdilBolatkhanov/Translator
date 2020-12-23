@@ -18,7 +18,8 @@ import com.example.common.data.User
 import com.example.cyrillic.ui.KirillizaFragment
 import com.example.favorites.ui.FavoriteFragment
 import com.example.translate.network.ui.TranslateFragment
-import com.example.translatorkotlin.fragments.*
+import com.example.translatorkotlin.fragments.account.*
+import com.example.translatorkotlin.fragments.media.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database

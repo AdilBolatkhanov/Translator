@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="?attr/fav_back"
     android:orientation="vertical"
-    tools:context=".fragments.SearchFragment">
+    tools:context=".fragments.media.SearchFragment">
 
     <View
         android:layout_width="match_parent"

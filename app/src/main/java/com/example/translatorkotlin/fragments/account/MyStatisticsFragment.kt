@@ -1,4 +1,4 @@
-package com.example.translatorkotlin.fragments
+package com.example.translatorkotlin.fragments.account
 
 import android.annotation.SuppressLint
 import android.os.Bundle
