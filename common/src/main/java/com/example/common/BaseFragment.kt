@@ -1,9 +1,7 @@
-package com.example.common;
-
+package com.example.common
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-
 
 abstract class BaseFragment<V : MvpView, P : MvpPresenter<V>> : BaseMvpFragment<V, P>() {
 

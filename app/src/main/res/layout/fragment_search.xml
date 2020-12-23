@@ -29,9 +29,7 @@
         android:paddingVertical="12dp"
         android:textColor="?attr/text_color"
         android:textColorHint="?attr/search_icon"
-        android:textSize="16sp"
-
-        />
+        android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/videoAndAudioRecycler"

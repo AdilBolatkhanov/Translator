@@ -1,5 +1,4 @@
-package com.example.common;
-
+package com.example.common
 
 import android.os.Bundle
 import android.view.View

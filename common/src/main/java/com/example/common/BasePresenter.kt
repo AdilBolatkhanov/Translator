@@ -1,5 +1,4 @@
-package com.example.common;
-
+package com.example.common
 
 import androidx.annotation.CallSuper
 

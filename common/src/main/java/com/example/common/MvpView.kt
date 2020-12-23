@@ -1,4 +1,3 @@
-package com.example.common;
-
+package com.example.common
 
 interface MvpView

@@ -20,19 +20,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.translatorkotlin.MainActivity
 import com.example.translatorkotlin.R
 import com.example.translatorkotlin.media.AudioPlayerView
 import com.example.translatorkotlin.media.MediaFiles
 import com.example.translatorkotlin.media.VideoPlayerView
 import kotlinx.android.synthetic.main.fragment_search.*
-import com.example.translatorkotlin.MainActivity
-import java.util.Locale
+import java.util.*
 
-class SearchFragment : Fragment() {
-
-    override
-    fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
-            View? { return inflater.inflate(R.layout.fragment_search, container, false) }
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,7 +75,6 @@ class SearchFragment : Fragment() {
             .setImageResource(R.drawable.ic_overflow)
         val textView = (activity as AppCompatActivity).findViewById<TextView>(R.id.exchangeTextView)
         (activity as AppCompatActivity).findViewById<Toolbar>(R.id.toolbar).removeView(textView)
-
         (activity as MainActivity).setPopupMenu()
     }
 
@@ -184,8 +179,8 @@ class SearchFragment : Fragment() {
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 mediaFilesList.clear()
-                if (results?.values != null && results?.values as MutableList<MediaFiles> != null) {
-                    mediaFilesList.addAll(results?.values as MutableList<MediaFiles>)
+                if (results?.values != null && results.values as MutableList<MediaFiles> != null) {
+                    mediaFilesList.addAll(results.values as MutableList<MediaFiles>)
                 }
                 notifyDataSetChanged()
             }

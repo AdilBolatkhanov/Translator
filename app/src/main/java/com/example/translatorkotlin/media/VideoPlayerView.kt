@@ -12,10 +12,11 @@ import com.example.translatorkotlin.R
 import kotlinx.android.synthetic.main.view_video_player.view.*
 import java.util.concurrent.TimeUnit
 
-class VideoPlayerView
-@JvmOverloads constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
-    RelativeLayout(context, attrs, defStyleAttr) {
-
+class VideoPlayerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet?,
+    defStyleAttr: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr) {
     private var started = false
     private var paused = false
     private var iconsVisible = false
