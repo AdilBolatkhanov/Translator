@@ -5,9 +5,9 @@ import android.media.MediaPlayer
 import android.os.Handler
 import android.text.Spannable
 import android.util.AttributeSet
-import android.view.View
 import android.widget.RelativeLayout
 import android.widget.SeekBar
+import androidx.core.view.isVisible
 import com.example.translatorkotlin.R
 import kotlinx.android.synthetic.main.view_video_player.view.*
 import java.util.concurrent.TimeUnit
@@ -29,11 +29,109 @@ class VideoPlayerView @JvmOverloads constructor(
     init {
         inflate(context, R.layout.view_video_player, this)
 
-        seekBar.visibility = View.GONE
-        time.visibility = View.GONE
-        titleTopTV.visibility = View.GONE
-        videoView.visibility = View.GONE
+        showOrHidePlaceholders(true)
 
+        getAndSetAttributes(attrs, context, defStyleAttr)
+
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        playFAB.setOnClickListener {
+            if (!started) {
+                prepareAndStartVideoPlayback()
+
+                started = true
+                iconsVisible = false
+            } else {
+                handlePlayPauseState()
+            }
+        }
+
+        videoView.setOnClickListener {
+            if (!iconsVisible) {
+                iconsVisible = true
+                showOrHideIcons(iconsVisible)
+            } else {
+                iconsVisible = false
+                showOrHideIcons(iconsVisible)
+            }
+        }
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) =
+                Unit
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                videoView.seekTo(seekBar?.progress ?: 0)
+            }
+        })
+    }
+
+    private fun prepareAndStartVideoPlayback() {
+        playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
+        playFAB.visibility = GONE
+        showOrHidePlaceholders(false)
+
+        videoView.setVideoPath(url)
+        videoView.start()
+        setupVideoViewListeners()
+    }
+
+    private fun handlePlayPauseState() {
+        if (!paused) {
+            playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
+            mediaPlayer?.pause()
+            paused = true
+        } else {
+            playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
+            mediaPlayer?.start()
+            paused = false
+        }
+    }
+
+    private fun setupVideoViewListeners() {
+        videoView.setOnPreparedListener {
+            mediaPlayer = it
+            seekBar.max = it.duration
+            durationString = formatStringToTime("%02d:%02d", it.duration.toLong())
+            runSeekbar()
+        }
+
+        videoView.setOnCompletionListener {
+            videoView.stopPlayback()
+            release()
+            stopRun()
+            playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
+            showOrHidePlaceholders(true)
+            playFAB.visibility = VISIBLE
+            started = false
+        }
+    }
+
+    private fun showOrHideIcons(show: Boolean) {
+        playFAB.isVisible = show
+        seekBar.isVisible = show
+        titleTopTV.isVisible = show
+        time.isVisible = show
+    }
+
+    private fun showOrHidePlaceholders(show: Boolean) {
+        videoView.isVisible = !show
+        seekBar.isVisible = !show
+        titleTopTV.isVisible = !show
+        time.isVisible = !show
+        titleBottomTV.isVisible = show
+        placeholderImage.isVisible = show
+    }
+
+    private fun getAndSetAttributes(
+        attrs: AttributeSet?,
+        context: Context,
+        defStyleAttr: Int
+    ) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(
                 it,
@@ -50,107 +148,27 @@ class VideoPlayerView @JvmOverloads constructor(
 
             typedArray.recycle()
         }
-
-        playFAB.setOnClickListener {
-            if (!started) {
-                playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
-                playFAB.visibility = View.GONE
-                titleBottomTV.visibility = View.GONE
-                placeholderImage.visibility = View.GONE
-                videoView.visibility = View.VISIBLE
-                videoView.setVideoPath(url)
-                videoView.start()
-                videoView.setOnPreparedListener {
-                    mediaPlayer = it
-                    seekBar.max = it.duration
-                    durationString = String.format(
-                        "%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(it.duration.toLong()),
-                        TimeUnit.MILLISECONDS.toSeconds(it.duration.toLong()) -
-                                TimeUnit.MINUTES.toSeconds(
-                                    TimeUnit.MILLISECONDS.toMinutes(it.duration.toLong())
-                                )
-                    )
-                    runSeekbar()
-                }
-
-                videoView.setOnCompletionListener {
-                    videoView.stopPlayback()
-                    release()
-                    stopRun()
-                    videoView.visibility = View.GONE
-                    playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
-                    seekBar.visibility = GONE
-                    titleTopTV.visibility = View.GONE
-                    time.visibility = GONE
-                    titleBottomTV.visibility = View.VISIBLE
-                    placeholderImage.visibility = View.VISIBLE
-                    started = false
-                }
-
-                started = true
-                iconsVisible = false
-            } else {
-                if (!paused) {
-                    playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
-                    mediaPlayer?.pause()
-                    paused = true
-                } else {
-                    playFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
-                    mediaPlayer?.start()
-                    paused = false
-                }
-            }
-        }
-
-        videoView.setOnClickListener {
-            if (!iconsVisible) {
-                playFAB.visibility = View.VISIBLE
-                seekBar.visibility = View.VISIBLE
-                titleTopTV.visibility = View.VISIBLE
-                time.visibility = View.VISIBLE
-                iconsVisible = true
-            } else {
-                playFAB.visibility = GONE
-                seekBar.visibility = GONE
-                titleTopTV.visibility = GONE
-                time.visibility = GONE
-                iconsVisible = false
-            }
-        }
-
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {}
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                videoView.seekTo(seekBar?.progress ?: 0)
-            }
-        })
     }
 
     private fun runSeekbar() {
         runnable = Runnable {
             val currentPos = mediaPlayer?.currentPosition
             if (currentPos != null) {
-                time.text = String.format(
-                    "%02d:%02d - $durationString",
-                    TimeUnit.MILLISECONDS.toMinutes(currentPos.toLong()),
-                    TimeUnit.MILLISECONDS.toSeconds(currentPos.toLong()) -
-                            TimeUnit.MINUTES.toSeconds(
-                                TimeUnit.MILLISECONDS.toMinutes(
-                                    currentPos.toLong()
-                                )
-                            )
-                )
-            }
-            if (currentPos != null) {
+                time.text = formatStringToTime("%02d:%02d - $durationString", currentPos.toLong())
                 seekBar.progress = currentPos
             }
-            myHandler.postDelayed(runnable, 100)
+            myHandler.postDelayed(runnable!!, 100)
         }
-        myHandler.postDelayed(runnable, 100)
+        myHandler.postDelayed(runnable!!, 100)
+    }
+
+    private fun formatStringToTime(format: String, position: Long): String {
+        return String.format(
+            format,
+            TimeUnit.MILLISECONDS.toMinutes(position),
+            TimeUnit.MILLISECONDS.toSeconds(position) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(position))
+        )
     }
 
     private fun release() {
@@ -161,7 +179,9 @@ class VideoPlayerView @JvmOverloads constructor(
     }
 
     private fun stopRun() {
-        myHandler.removeCallbacks(runnable)
+        runnable?.let {
+            myHandler.removeCallbacks(it)
+        }
     }
 
     fun setVideoURL(urlStr: String) {
