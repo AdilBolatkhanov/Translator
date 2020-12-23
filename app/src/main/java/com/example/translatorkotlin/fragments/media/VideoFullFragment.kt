@@ -1,19 +1,16 @@
-package com.example.translatorkotlin.fragments
+package com.example.translatorkotlin.fragments.media
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.translatorkotlin.R
 import kotlinx.android.synthetic.main.video_full_fragment.*
 
-private const val URL = "param1"
-private const val TITLE = "param2"
-private const val DESCRIPTION = "param3"
+private const val URL = "URL"
+private const val TITLE = "TITLE"
+private const val DESCRIPTION = "DESCRIPTION"
 
-class VideoFullFragment : Fragment() {
-
+class VideoFullFragment : Fragment(R.layout.video_full_fragment) {
     private var url: String? = null
     private var title: String? = null
     private var description: String? = null
@@ -25,10 +22,6 @@ class VideoFullFragment : Fragment() {
             title = it.getString(TITLE)
             description = it.getString(DESCRIPTION)
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.video_full_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,12 +37,12 @@ class VideoFullFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String, param3: String) =
+        fun newInstance(url: String, title: String, description: String) =
             VideoFullFragment().apply {
                 arguments = Bundle().apply {
-                    putString(URL, param1)
-                    putString(TITLE, param2)
-                    putString(DESCRIPTION, param3)
+                    putString(URL, url)
+                    putString(TITLE, title)
+                    putString(DESCRIPTION, description)
                 }
             }
     }

@@ -1,4 +1,4 @@
-package com.example.translatorkotlin.media
+package com.example.translatorkotlin.mediaViews
 
 import android.content.Context
 import android.media.MediaPlayer

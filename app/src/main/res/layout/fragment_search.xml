@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/fav_back"
     android:orientation="vertical"
     tools:context=".fragments.media.SearchFragment">
@@ -35,5 +36,6 @@
         android:id="@+id/videoAndAudioRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:scrollbars="vertical" />
 </LinearLayout>

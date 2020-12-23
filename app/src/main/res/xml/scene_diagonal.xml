@@ -13,7 +13,6 @@
             motion:touchAnchorSide="top" />
     </Transition>
 
-
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/containerFullVideo"
@@ -28,8 +27,6 @@
                 motion:attributeName="backgroundColor"
                 motion:customColorValue="#000" />
         </Constraint>
-
-
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -43,8 +40,6 @@
                 motion:attributeName="backgroundColor"
                 motion:customColorValue="@color/white" />
         </Constraint>
-
-
     </ConstraintSet>
 
 </MotionScene>

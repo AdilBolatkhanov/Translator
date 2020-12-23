@@ -1,4 +1,4 @@
-package com.example.translatorkotlin.media
+package com.example.translatorkotlin.mediaViews
 
 import android.content.Context
 import android.media.AudioManager
@@ -153,7 +153,7 @@ class AudioPlayerView @JvmOverloads constructor(
         }
     }
 
-    fun setVideoURL(urlStr: String) {
+    fun setAudioURL(urlStr: String) {
         url = urlStr
     }
 
