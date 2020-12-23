@@ -152,10 +152,10 @@ class VideoPlayerView @JvmOverloads constructor(
 
     private fun runSeekbar() {
         runnable = Runnable {
-            val currentPos = mediaPlayer?.currentPosition
-            if (currentPos != null) {
-                time.text = formatStringToTime("%02d:%02d - $durationString", currentPos.toLong())
-                seekBar.progress = currentPos
+            mediaPlayer?.let {
+                time.text =
+                    formatStringToTime("%02d:%02d - $durationString", it.currentPosition.toLong())
+                seekBar.progress = it.currentPosition
             }
             myHandler.postDelayed(runnable!!, 100)
         }

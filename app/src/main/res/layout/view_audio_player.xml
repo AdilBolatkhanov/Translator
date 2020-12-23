@@ -32,8 +32,8 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/timeAudio"
-            android:layout_toRightOf="@id/playFABAudio"
+            android:layout_toStartOf="@+id/timeAudio"
+            android:layout_toEndOf="@id/playFABAudio"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -43,16 +43,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/regular"
                 android:textColor="?attr/text_color"
-                android:textSize="16sp"
-
-                />
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="16sp" />
 
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="-10dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 android:max="100"
                 android:progressTint="?attr/tint_color" />
@@ -62,16 +62,14 @@
             android:id="@+id/timeAudio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/light"
             android:textColor="?attr/text_color"
             android:textSize="14sp"
             tools:text="12:00 12:00" />
 
-
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>

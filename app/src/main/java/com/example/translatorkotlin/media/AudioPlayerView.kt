@@ -14,9 +14,11 @@ import kotlinx.android.synthetic.main.view_audio_player.view.*
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class AudioPlayerView
-@JvmOverloads constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
-    RelativeLayout(context, attrs, defStyleAttr) {
+class AudioPlayerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet?,
+    defStyleAttr: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr) {
 
     private var mediaPlayer: MediaPlayer? = null
     private var audioManager: AudioManager =
@@ -43,62 +45,15 @@ class AudioPlayerView
 
     init {
         inflate(context, R.layout.view_audio_player, this)
+        setupListeners()
+    }
+
+    private fun setupListeners() {
         playFABAudio.setOnClickListener {
             if (!started) {
-                val result = audioManager.requestAudioFocus(
-                    mAudioFocusChangeListener,
-                    AudioManager.STREAM_MUSIC,
-                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
-                )
-                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
-                    mediaPlayer = MediaPlayer()
-                    try {
-                        mediaPlayer?.apply {
-                            setAudioStreamType(AudioManager.STREAM_MUSIC)
-                            setDataSource(url)
-                            prepareAsync()
-                            Toast.makeText(getContext(), "Loading, wait...", Toast.LENGTH_LONG)
-                                .show()
-                        }
-                        mediaPlayer?.setOnPreparedListener {
-                            mediaPlayer?.start()
-                            Toast.makeText(getContext(), "Playing", Toast.LENGTH_LONG).show()
-                            seekBar.max = it.duration
-                            durationString = String.format(
-                                "%02d:%02d",
-                                TimeUnit.MILLISECONDS.toMinutes(it.duration.toLong()),
-                                TimeUnit.MILLISECONDS.toSeconds(it.duration.toLong()) -
-                                        TimeUnit.MINUTES.toSeconds(
-                                            TimeUnit.MILLISECONDS.toMinutes(
-                                                it.duration.toLong()
-                                            )
-                                        )
-                            )
-                            runSeekbar()
-                        }
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                    mediaPlayer?.setOnCompletionListener {
-                        it.stop()
-                        stopRun()
-                        playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
-                        stop()
-                        started = false
-                    }
-                    started = true
-                }
+                prepareAndPlayAudio()
             } else {
-                if (!paused) {
-                    playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
-                    mediaPlayer?.pause()
-                    paused = true
-                } else {
-                    playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
-                    mediaPlayer?.start()
-                    paused = false
-                }
+                handlePlayPauseStates()
             }
         }
 
@@ -113,31 +68,89 @@ class AudioPlayerView
         })
     }
 
+    private fun handlePlayPauseStates() {
+        if (!paused) {
+            playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
+            mediaPlayer?.pause()
+            paused = true
+        } else {
+            playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
+            mediaPlayer?.start()
+            paused = false
+        }
+    }
+
+    private fun prepareAndPlayAudio() {
+        val requestResult = audioManager.requestAudioFocus(
+            mAudioFocusChangeListener,
+            AudioManager.STREAM_MUSIC,
+            AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
+        )
+        if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_pause_black_30dp))
+            mediaPlayer = MediaPlayer()
+            try {
+                setupMediaPlayer()
+                setupMediaListeners()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            started = true
+        }
+    }
+
+    private fun setupMediaListeners() {
+        mediaPlayer?.setOnPreparedListener {
+            mediaPlayer?.start()
+            seekBar.max = it.duration
+            durationString = formatStringToTime("%02d:%02d", it.duration.toLong())
+            runSeekbar()
+        }
+
+        mediaPlayer?.setOnCompletionListener {
+            it.stop()
+            stopRun()
+            playFABAudio.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp))
+            stop()
+            started = false
+        }
+    }
+
+    private fun formatStringToTime(format: String, position: Long): String {
+        return String.format(
+            format,
+            TimeUnit.MILLISECONDS.toMinutes(position),
+            TimeUnit.MILLISECONDS.toSeconds(position) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(position))
+        )
+    }
+
+    private fun setupMediaPlayer() {
+        mediaPlayer?.apply {
+            setAudioStreamType(AudioManager.STREAM_MUSIC)
+            setDataSource(url)
+            prepareAsync()
+            Toast.makeText(context, "Loading, wait...", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
     private fun runSeekbar() {
         runnable = Runnable {
-            val currentPos = mediaPlayer?.currentPosition
-            if (currentPos != null) {
-                timeAudio.text = String.format(
-                    "%02d:%02d - $durationString",
-                    TimeUnit.MILLISECONDS.toMinutes(currentPos.toLong()),
-                    TimeUnit.MILLISECONDS.toSeconds(currentPos.toLong()) -
-                            TimeUnit.MINUTES.toSeconds(
-                                TimeUnit.MILLISECONDS.toMinutes(
-                                    currentPos.toLong()
-                                )
-                            )
-                )
+            mediaPlayer?.let {
+                timeAudio.text =
+                    formatStringToTime("%02d:%02d - $durationString", it.currentPosition.toLong())
+                seekBar.progress = it.currentPosition
             }
-            if (currentPos != null) {
-                seekBar.progress = currentPos
-            }
-            myHandler.postDelayed(runnable, 100)
+            myHandler.postDelayed(runnable!!, 100)
         }
-        myHandler.postDelayed(runnable, 100)
+        myHandler.postDelayed(runnable!!, 100)
     }
 
     private fun stopRun() {
-        myHandler.removeCallbacks(runnable)
+        runnable?.let {
+            myHandler.removeCallbacks(it)
+        }
     }
 
     fun setVideoURL(urlStr: String) {
@@ -152,7 +165,7 @@ class AudioPlayerView
         titleAudio.text = title
     }
 
-    fun stop() {
+    private fun stop() {
         if (mediaPlayer != null) {
             mediaPlayer?.release()
             mediaPlayer = null
