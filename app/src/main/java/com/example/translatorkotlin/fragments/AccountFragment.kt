@@ -12,13 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.example.common.data.User
 import com.example.translatorkotlin.MainActivity
 import com.example.translatorkotlin.R
+import com.example.translatorkotlin.adapters.StatisticsViewPagerAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -80,14 +79,17 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         if (sharedPreferences!!.getBoolean(AUTH, false)) {
             changeVisibilityAuthorized(true)
 
-            emailTextView.text = sharedPreferences!!.getString(EMAIL, "")
-            nameTextView.text = sharedPreferences!!.getString(NAME, "")
-            val url = sharedPreferences!!.getString(URL_ACC, "")
-            Glide.with(requireContext()).load(url).into(userImage)
-
+            setViewsWithValues()
             setTime()
             setupTabLayout()
         }
+    }
+
+    private fun setViewsWithValues() {
+        emailTextView.text = sharedPreferences!!.getString(EMAIL, "")
+        nameTextView.text = sharedPreferences!!.getString(NAME, "")
+        val url = sharedPreferences!!.getString(URL_ACC, "")
+        Glide.with(requireContext()).load(url).into(userImage)
     }
 
     private fun changeVisibilityAuthorized(authorized: Boolean) {
@@ -141,7 +143,6 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                     val userArrayList = mutableListOf<User>()
                     for (child in dataSnapshot.children) {
                         val user: User? = child.getValue<User>()
-                        Log.d("myUsers", user?.name.toString() + " " + user?.email)
                         userArrayList.add(user!!)
                     }
                 }
@@ -250,7 +251,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     }
 
     private fun setupTabLayout() {
-        val adapter = ViewPagerAdapter(activity as MainActivity)
+        val adapter = StatisticsViewPagerAdapter(activity as MainActivity)
         viewPager.adapter = adapter
         TabLayoutMediator(tabStatistics, viewPager) { tab, position ->
             tab.text = adapter.getTitle(position)
@@ -270,27 +271,4 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             .apply()
     }
 
-    private class ViewPagerAdapter(activity: FragmentActivity) :
-        FragmentStateAdapter(activity) {
-
-        override fun createFragment(position: Int): Fragment {
-            when (position) {
-                0 -> return MyStatisticsFragment()
-                1 -> return GeneralStatisticsFragment()
-            }
-            return Fragment()
-        }
-
-        fun getTitle(pos: Int): String {
-            return if (pos == 0) {
-                "Individual Statistics"
-            } else {
-                "General Statistics"
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return 2
-        }
-    }
 }
