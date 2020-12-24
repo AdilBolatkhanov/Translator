@@ -1,8 +1,11 @@
 package com.example.translate.network.ui
 
 import android.util.Log
-import com.example.common.BasePresenter
-import com.example.common.data.*
+import com.example.common.data.Favorites
+import com.example.common.data.FavoritesDao
+import com.example.common.data.TranslatedResponse
+import com.example.common.data.TranslatedResponseDao
+import com.example.common.mvp.BasePresenter
 import com.example.translate.network.api.API_KEY
 import com.example.translate.network.api.TranslateApiService
 import com.example.translate.network.model.TranslatedWord

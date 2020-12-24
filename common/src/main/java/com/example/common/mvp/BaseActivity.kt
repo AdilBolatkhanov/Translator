@@ -1,9 +1,10 @@
-package com.example.common
+package com.example.common.mvp
 
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.example.common.R
 
 abstract class BaseActivity : AppCompatActivity() {
 

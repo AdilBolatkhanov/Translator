@@ -26,13 +26,13 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.example.common.BaseFragment
-import com.example.common.data.TranslatedResponse
-import com.example.translate.network.model.TranslatedWord
 import com.example.common.data.Favorites
+import com.example.common.data.TranslatedResponse
+import com.example.common.mvp.BaseFragment
 import com.example.common.utility.ItemDecoration
 import com.example.common.utility.Utility
 import com.example.translate.R
+import com.example.translate.network.model.TranslatedWord
 import kotlinx.android.synthetic.main.fragment_translate.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.ExecutorService

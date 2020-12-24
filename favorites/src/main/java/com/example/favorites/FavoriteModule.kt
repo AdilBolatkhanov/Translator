@@ -1,6 +1,6 @@
 package com.example.favorites
 
-import com.example.common.InjectionModule
+import com.example.common.mvp.InjectionModule
 import com.example.favorites.model.FavoriteRepository
 import com.example.favorites.viewmodel.FavoriteViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

@@ -1,4 +1,4 @@
-package com.example.common
+package com.example.common.mvp
 
 import org.koin.core.module.Module
 

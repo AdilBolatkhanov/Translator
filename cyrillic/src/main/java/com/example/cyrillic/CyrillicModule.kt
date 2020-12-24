@@ -1,12 +1,11 @@
 package com.example.cyrillic
 
-import com.example.common.InjectionModule
 import com.example.common.data.FavoritesDao
 import com.example.common.data.MyDatabase
 import com.example.common.data.ResponseClassDao
+import com.example.common.mvp.InjectionModule
 import com.example.cyrillic.model.KirillizaRepository
 import com.example.cyrillic.viewmodel.KirillizaViewModel
-import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module

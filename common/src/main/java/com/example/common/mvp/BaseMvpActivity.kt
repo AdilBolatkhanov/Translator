@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.common.mvp;
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
