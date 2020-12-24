@@ -1,11 +1,7 @@
 package com.example.cyrillic.ui
 
 import android.annotation.SuppressLint
-import android.content.SharedPreferences
-import android.content.Context
-import android.content.Intent
-import android.content.ClipboardManager
-import android.content.ClipData
+import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -38,12 +34,14 @@ import com.example.common.utility.ItemDecoration
 import com.example.common.utility.MyDiffUtil
 import com.example.common.utility.Utility
 import com.example.cyrillic.R
-import com.example.cyrillic.viewmodel.KirillizaViewModel
+import com.example.cyrillic.util.CyrillicToLatinMapping
+import com.example.cyrillic.viewmodel.CyrillicViewModel
 import kotlinx.android.synthetic.main.fragment_kirilliza.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import org.koin.androidx.viewmodel.ext.android.viewModel
+
 const val THEMEPREF = "THEMEPREF"
 const val DarkTHEME = "DarkTheme"
 const val USER_INPUT = "USER_INPUT"
@@ -54,97 +52,21 @@ const val NAME = "name"
 const val URL_ACC = "url"
 const val TIME = "time"
 const val QUANTITY = "quantity"
-const val STARTTIME = "start"
 
-class KirillizaFragment : Fragment() {
+class KirillizaFragment : Fragment(R.layout.fragment_kirilliza) {
     private val kirToLat: HashMap<String, String> =
-        object : HashMap<String, String>() {
-            init {
-                put("Ә", "Á")
-                put("ә", "á")
-                put("Б", "B")
-                put("б", "b")
-                put("Д", "D")
-                put("д", "d")
-                put("Ф", "F")
-                put("ф", "f")
-                put("Ғ", "Ǵ")
-                put("ғ", "ǵ")
-                put("Г", "G")
-                put("г", "g")
-                put("Х", "H")
-                put("х", "h")
-                put("И", "I")
-                put("и", "ı")
-                put("Й", "I")
-                put("й", "ı")
-                put("Ж", "J")
-                put("ж", "j")
-                put("Л", "L")
-                put("л", "l")
-                put("к", "k")
-                put("м", "m")
-                put("Н", "N")
-                put("н", "n")
-                put("ц", "ts")
-                put("Ң", "Ń")
-                put("ң", "ń")
-                put("Ө", "Ó")
-                put("ө", "ó")
-                put("П", "P")
-                put("Ц", "Ts")
-                put("п", "p")
-                put("Қ", "Q")
-                put("қ", "q")
-                put("Р", "R")
-                put("р", "r")
-                put("Ш", "Sh")
-                put("ш", "sh")
-                put("С", "S")
-                put("с", "s")
-                put("т", "t")
-                put("Ұ", "U")
-                put("ұ", "u")
-                put("Ү", "Ú")
-                put("ү", "ú")
-                put("В", "V")
-                put("в", "v")
-                put("Ы", "Y")
-                put("ы", "y")
-                put("У", "Ý")
-                put("у", "ý")
-                put("З", "Z")
-                put("з", "z")
-                put("Ч", "Ch")
-                put("ч", "ch")
-                put("Э", "E")
-                put("э", "e")
-                put("Щ", "")
-                put("щ", "")
-                put("ь", "")
-                put("ъ", "")
-                put("Я", "Ia")
-                put("я", "ıa")
-                put("Ю", "Iý")
-                put("ю", "ıý")
-            }
-        }
+        CyrillicToLatinMapping.getCyrillicToLatinMapping()
 
-    private val viewModel: KirillizaViewModel by viewModel()
+    private val viewModel: CyrillicViewModel by viewModel()
 
     private var messageId = 1
     private var responseMessageList = mutableListOf<ResponseClass>()
     private var themePref: SharedPreferences? = null
-    lateinit var pref: SharedPreferences
+    private lateinit var pref: SharedPreferences
     private var executorService: ExecutorService = Executors.newSingleThreadExecutor()
     private var mainThreadExecutor = MainThreadExecutor()
     lateinit var layoutManager: LinearLayoutManager
-    lateinit var messageAdapter: MessageAdapter
-
-    override
-    fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_kirilliza, container, false) }
-
+    private lateinit var messageAdapter: MessageAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -164,17 +86,17 @@ class KirillizaFragment : Fragment() {
         }
 
         sendMessageImage.setOnClickListener {
-            var userInputStr = userInput.text.toString()
+            val userInputStr = userInput.text.toString()
             if (userInputStr.isNotEmpty()) {
                 executorService.execute {
-                    var responseMessage = ResponseClass(
+                    val responseMessage = ResponseClass(
                         messageId++,
                         userInputStr,
                         true
                     )
                     responseMessageList.add(responseMessage)
                     val lat = translateToLat(userInputStr)
-                    var responseMessage2 = ResponseClass(
+                    val responseMessage2 = ResponseClass(
                         messageId++,
                         lat,
                         false
@@ -206,12 +128,12 @@ class KirillizaFragment : Fragment() {
         }
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         viewModel.showError.observe(viewLifecycleOwner, Observer { showError ->
             Toast.makeText(context, showError, Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.response.observe(viewLifecycleOwner, Observer {responseList->
+        viewModel.response.observe(viewLifecycleOwner, Observer { responseList ->
             Log.d("KirillizaFragment", "${responseList.size}")
             if (responseList == null || responseList.isEmpty()) {
                 responseMessageList = mutableListOf()
@@ -228,18 +150,19 @@ class KirillizaFragment : Fragment() {
             messageAdapter.setActivity(activity as AppCompatActivity, context)
             messageAdapter.setItemsWithDiff(responseMessageList)
             conversation.adapter = messageAdapter
-        } )
+        })
         viewModel.getAllResponses()
     }
 
-    private fun initialSetup(){
+    private fun initialSetup() {
         themePref = activity?.getSharedPreferences(THEMEPREF, Context.MODE_PRIVATE)
         if (themePref?.getBoolean(DarkTHEME, false) == true) {
             containerRel.background = resources.getDrawable(R.drawable.nightmode)
         } else {
             containerRel.background = resources.getDrawable(R.drawable.background)
         }
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text = "Cyrillic - Latin"
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.toolbarText).text =
+            "Cyrillic - Latin"
         (activity as AppCompatActivity).findViewById<ImageView>(R.id.overflowToolbar)
             .setImageResource(R.drawable.ic_overflow)
         val textView = (activity as AppCompatActivity).findViewById<TextView>(R.id.exchangeTextView)
@@ -271,11 +194,12 @@ class KirillizaFragment : Fragment() {
         }
 
         val menuPopupHelper = MenuPopupHelper(wrapper, popupMenu.menu as MenuBuilder, toolbar)
-        menuPopupHelper.gravity = Gravity.RIGHT
+        menuPopupHelper.gravity = Gravity.END
         menuPopupHelper.setForceShowIcon(true)
-        (activity as AppCompatActivity).findViewById<ImageView>(R.id.overflowToolbar).setOnClickListener {
-            menuPopupHelper.show()
-        }
+        (activity as AppCompatActivity).findViewById<ImageView>(R.id.overflowToolbar)
+            .setOnClickListener {
+                menuPopupHelper.show()
+            }
     }
 
     class MainThreadExecutor : Executor {
@@ -288,7 +212,7 @@ class KirillizaFragment : Fragment() {
 
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            var lastPosition = layoutManager.findLastVisibleItemPosition()
+            val lastPosition = layoutManager.findLastVisibleItemPosition()
             if (lastPosition < responseMessageList.size - 1 && responseMessageList.size != 0) {
                 scrollFAB.show()
             } else {
@@ -404,9 +328,9 @@ class KirillizaFragment : Fragment() {
                         val fragment: Fragment =
                             activity.supportFragmentManager.findFragmentByTag("fragmentTag")!!
                         (fragment as KirillizaFragment).viewModel.favoritesResponse.observe(fragment.viewLifecycleOwner,
-                            Observer {favorites->
-                                var first: String
-                                var second: String
+                            Observer { favorites ->
+                                val first: String
+                                val second: String
 
                                 var id = 0
                                 for (favorite in favorites) {
@@ -423,13 +347,15 @@ class KirillizaFragment : Fragment() {
                                     first = responseMessages[positionOfItem - 1].text
                                     second = responseMessages[positionOfItem].text
                                 }
-                                fragment.viewModel.insertAllFavorites(listOf(
-                                    Favorites(
-                                        id,
-                                        first,
-                                        second
+                                fragment.viewModel.insertAllFavorites(
+                                    listOf(
+                                        Favorites(
+                                            id,
+                                            first,
+                                            second
+                                        )
                                     )
-                                ))
+                                )
                             })
                         fragment.viewModel.getAllFavorites()
                         true

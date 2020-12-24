@@ -4,7 +4,7 @@ import com.example.common.data.Favorites
 import com.example.common.data.ResponseClass
 import mvvm.UseCaseResult
 
-interface KirillizaRepositoryInt {
+interface CyrillicRepositoryInt {
     suspend fun getAll(): UseCaseResult<List<ResponseClass>>
     suspend fun insertAll(responseClasses: List<ResponseClass>)
     suspend fun delete(responseClass: ResponseClass)

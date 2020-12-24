@@ -8,11 +8,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mvvm.UseCaseResult
 
-
-class KirillizaRepository(private val responseDao: ResponseClassDao, private val favoritesDao: FavoritesDao):KirillizaRepositoryInt  {
+class CyrillicRepositoryImpl(
+    private val responseDao: ResponseClassDao,
+    private val favoritesDao: FavoritesDao
+) : CyrillicRepositoryInt {
     override suspend fun getAll(): UseCaseResult<List<ResponseClass>> {
         return try {
-            val result = withContext(Dispatchers.IO) { responseDao.getAll()}
+            val result = withContext(Dispatchers.IO) { responseDao.getAll() }
             UseCaseResult.Success(result)
         } catch (ex: Exception) {
             UseCaseResult.Error(ex)
@@ -20,16 +22,16 @@ class KirillizaRepository(private val responseDao: ResponseClassDao, private val
     }
 
     override suspend fun insertAll(responseClasses: List<ResponseClass>) {
-        withContext(Dispatchers.IO) { responseDao.insertAll(responseClasses)}
+        withContext(Dispatchers.IO) { responseDao.insertAll(responseClasses) }
     }
 
     override suspend fun delete(responseClass: ResponseClass) {
-        withContext(Dispatchers.IO) { responseDao.delete(responseClass)}
+        withContext(Dispatchers.IO) { responseDao.delete(responseClass) }
     }
 
     override suspend fun getAllFavorites(): UseCaseResult<List<Favorites>> {
         return try {
-            val result = withContext(Dispatchers.IO) { favoritesDao.getAll()}
+            val result = withContext(Dispatchers.IO) { favoritesDao.getAll() }
             UseCaseResult.Success(result)
         } catch (ex: Exception) {
             UseCaseResult.Error(ex)
@@ -37,6 +39,6 @@ class KirillizaRepository(private val responseDao: ResponseClassDao, private val
     }
 
     override suspend fun insertFavorites(favorites: List<Favorites>) {
-        withContext(Dispatchers.IO) { favoritesDao.insertAll(favorites)}
+        withContext(Dispatchers.IO) { favoritesDao.insertAll(favorites) }
     }
 }

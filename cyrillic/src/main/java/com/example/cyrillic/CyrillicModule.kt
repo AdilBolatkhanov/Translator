@@ -4,8 +4,9 @@ import com.example.common.data.FavoritesDao
 import com.example.common.data.MyDatabase
 import com.example.common.data.ResponseClassDao
 import com.example.common.mvp.InjectionModule
-import com.example.cyrillic.model.KirillizaRepository
-import com.example.cyrillic.viewmodel.KirillizaViewModel
+import com.example.cyrillic.model.CyrillicRepositoryImpl
+import com.example.cyrillic.model.CyrillicRepositoryInt
+import com.example.cyrillic.viewmodel.CyrillicViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -21,8 +22,8 @@ object CyrillicModule: InjectionModule {
 
         single { provideResponseDao(get()) }
         single { provideFavoriteDao(get()) }
-        single{ KirillizaRepository(get(), get()) }
+        single<CyrillicRepositoryInt>{ CyrillicRepositoryImpl(get(), get()) }
 
-        viewModel { KirillizaViewModel(get()) }
+        viewModel { CyrillicViewModel(get()) }
     }
 }
