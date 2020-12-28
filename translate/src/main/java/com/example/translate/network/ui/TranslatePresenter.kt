@@ -11,6 +11,9 @@ import com.example.translate.network.api.TranslateApiService
 import com.example.translate.network.model.TranslatedWord
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TranslatePresenter(
     private val translateApiService: TranslateApiService,
@@ -62,11 +65,15 @@ class TranslatePresenter(
     }
 
     override fun insertFavoriteRecordToDB(list: List<Favorites>) {
-        favoritesDao.insertAll(list)
+        CoroutineScope(Dispatchers.IO).launch {  favoritesDao.insertAll(list)}
     }
 
     override fun getAllFavoriteDataFromDB(): List<Favorites> {
-        return favoritesDao.getAll()
+        val data = favoritesDao.getAll()
+        data.value?.let{
+            return it
+        }
+        return emptyList()
     }
 
     override fun deleteWordsFromDb(word1: TranslatedResponse, word2: TranslatedResponse) {

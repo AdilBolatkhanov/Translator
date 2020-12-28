@@ -141,7 +141,7 @@ class KirillizaFragment : Fragment(R.layout.fragment_kirilliza), ResponseClickLi
                 scrollFAB.show()
             }
             messageAdapter.setItemsWithDiff(responseMessageList)
-            if (!isLastVisible())
+            if (!isLastVisible() && responseMessageList.isNotEmpty())
                 conversation.smoothScrollToPosition(messageAdapter.itemCount - 1)
         })
     }
