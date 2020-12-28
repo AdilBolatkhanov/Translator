@@ -329,15 +329,7 @@ class TranslateFragment : BaseFragment<TranslateContract.View, TranslateContract
                         executor.execute {
                             var first = ""
                             var second = ""
-                            val favorites =
-                                (fragment as TranslateFragment).presenter.getAllFavoriteDataFromDB()
-                            var id = 0
-                            for (favorite in favorites) {
-                                if (favorite.favoritesID > id) {
-                                    id = favorite.favoritesID
-                                }
-                            }
-                            id += 1
+                            (fragment as TranslateFragment).presenter.getAllFavoriteDataFromDB()
                             if (responseMessages[positionOfItem].isMe) {
                                 first = responseMessages[positionOfItem].text
                                 second = responseMessages[positionOfItem + 1].text
@@ -348,7 +340,6 @@ class TranslateFragment : BaseFragment<TranslateContract.View, TranslateContract
                             fragment.presenter.insertFavoriteRecordToDB(
                                 listOf(
                                     Favorites(
-                                        id,
                                         first,
                                         second
                                     )

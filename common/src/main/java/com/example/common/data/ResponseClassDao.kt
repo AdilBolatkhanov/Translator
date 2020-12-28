@@ -1,18 +1,16 @@
 package com.example.common.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.common.data.ResponseClass
-import io.reactivex.Completable
-import io.reactivex.Maybe
 
 @Dao
 interface ResponseClassDao {
     @Query("Select * from responseclass")
-    fun getAll(): List<ResponseClass>
+    fun getAll(): LiveData<List<ResponseClass>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(responseClasses: List<ResponseClass>)
+    suspend fun insertAll(responseClasses: List<ResponseClass>)
 
     @Delete
-    fun delete(responseClass: ResponseClass)
+    suspend fun delete(responseClass: ResponseClass)
 }

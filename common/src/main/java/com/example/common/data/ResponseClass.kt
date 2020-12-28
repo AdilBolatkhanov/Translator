@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity
 class ResponseClass(
-    @PrimaryKey
-    @ColumnInfo(name = "response_id")
-    var responseId: Int,
     @ColumnInfo(name = "text")
     var text: String,
     @ColumnInfo(name = "is_me")
     var isMe: Boolean
-)
+){
+    @PrimaryKey(autoGenerate = true)
+    var responseId: Int? = null
+}

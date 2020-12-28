@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private fun setFragment() {
         supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container,
-            myFragment
+            myFragment, "fragmentTag"
         ).commit()
     }
 

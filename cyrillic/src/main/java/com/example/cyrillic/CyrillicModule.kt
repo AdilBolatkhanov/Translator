@@ -6,7 +6,7 @@ import com.example.common.data.ResponseClassDao
 import com.example.common.mvp.InjectionModule
 import com.example.cyrillic.model.CyrillicRepositoryImpl
 import com.example.cyrillic.model.CyrillicRepositoryInt
-import com.example.cyrillic.viewmodel.CyrillicViewModel
+import com.example.cyrillic.ui.viewmodel.CyrillicViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
