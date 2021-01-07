@@ -7,7 +7,6 @@
     android:background="@drawable/background"
     android:fitsSystemWindows="true">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/conversation"
         android:layout_width="match_parent"
@@ -22,9 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentTop="true"
-        android:background="?attr/lines"
-
-        />
+        android:background="?attr/lines" />
 
     <View
         android:layout_width="match_parent"
@@ -75,4 +72,5 @@
         app:borderWidth="0dp"
         app:elevation="4dp"
         app:fabCustomSize="48dp" />
+
 </RelativeLayout>

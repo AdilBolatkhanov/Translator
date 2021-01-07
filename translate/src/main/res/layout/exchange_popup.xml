@@ -19,7 +19,6 @@
         android:gravity="center"
         android:text="@string/rus_eng"
         android:textColor="?attr/tint_color"
-
         android:textSize="17sp" />
 
     <View
@@ -37,6 +36,5 @@
         android:text="@string/eng_rus"
         android:textColor="?attr/tint_color"
         android:textSize="17sp" />
-
 
 </LinearLayout>

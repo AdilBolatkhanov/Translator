@@ -7,10 +7,10 @@ import com.example.common.mvp.MvpView
 import com.example.translate.network.model.TranslatedWord
 
 interface TranslateContract {
+
     interface View : MvpView {
         fun showTranslatedWord(translatedWord: TranslatedWord)
         fun showAllDataFromDB(list: List<TranslatedResponse>)
-
     }
 
     interface Presenter : MvpPresenter<View> {
@@ -18,7 +18,6 @@ interface TranslateContract {
         fun getAllDataFromDB()
         fun insertAllDataToDB(list: List<TranslatedResponse>)
         fun insertFavoriteRecordToDB(list: List<Favorites>)
-        fun getAllFavoriteDataFromDB(): List<Favorites>
         fun deleteWordsFromDb(word1: TranslatedResponse, word2: TranslatedResponse)
     }
 }

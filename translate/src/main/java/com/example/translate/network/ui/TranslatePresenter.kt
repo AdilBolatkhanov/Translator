@@ -1,6 +1,7 @@
 package com.example.translate.network.ui
 
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.example.common.data.Favorites
 import com.example.common.data.FavoritesDao
 import com.example.common.data.TranslatedResponse
@@ -11,7 +12,6 @@ import com.example.translate.network.api.TranslateApiService
 import com.example.translate.network.model.TranslatedWord
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -19,9 +19,7 @@ class TranslatePresenter(
     private val translateApiService: TranslateApiService,
     private val translatedResponseDao: TranslatedResponseDao,
     private val favoritesDao: FavoritesDao
-) :
-    BasePresenter<TranslateContract.View>(),
-    TranslateContract.Presenter {
+) : BasePresenter<TranslateContract.View>(), TranslateContract.Presenter {
 
     override fun loadFromNetwork(textToTranslate: String, langDirection: String) {
         translateApiService.translate(API_KEY, textToTranslate, langDirection, "plain")
@@ -35,7 +33,6 @@ class TranslatePresenter(
                     Log.d("TranslateFragment", "Error in fetching data from network");
                 }
             ).disposeOnCleared()
-
     }
 
     override fun getAllDataFromDB() {
@@ -61,19 +58,10 @@ class TranslatePresenter(
             }, {
                 Log.d("TranslateFragment", "Error in inserting")
             }).disposeOnCleared()
-
     }
 
     override fun insertFavoriteRecordToDB(list: List<Favorites>) {
-        CoroutineScope(Dispatchers.IO).launch {  favoritesDao.insertAll(list)}
-    }
-
-    override fun getAllFavoriteDataFromDB(): List<Favorites> {
-        val data = favoritesDao.getAll()
-        data.value?.let{
-            return it
-        }
-        return emptyList()
+        viewModelScope.launch(Dispatchers.IO) { favoritesDao.insertAll(list) }
     }
 
     override fun deleteWordsFromDb(word1: TranslatedResponse, word2: TranslatedResponse) {
@@ -91,6 +79,4 @@ class TranslatePresenter(
                 }
             ).disposeOnCleared()
     }
-
-
 }

@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 
-abstract class BaseMvpFragment<V : MvpView, P : MvpPresenter<V>> : Fragment(),
-    MvpView {
+abstract class BaseMvpFragment<V : MvpView, P : MvpPresenter<V>> : Fragment(), MvpView {
 
     abstract val presenter: P
 

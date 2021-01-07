@@ -33,9 +33,7 @@
             android:layout_marginLeft="12dp"
             android:fontFamily="@font/regular"
             android:textColor="?attr/header_color"
-            android:textSize="22sp"
-
-            />
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/overflowToolbar"
@@ -48,7 +46,6 @@
             android:tint="?attr/tint_color" />
 
     </androidx.appcompat.widget.Toolbar>
-
 
     <View
         android:layout_width="match_parent"
@@ -73,9 +70,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/nav_view"
-        android:layout_below="@id/toolbar">
-
-    </FrameLayout>
-
+        android:layout_below="@id/toolbar" />
 
 </RelativeLayout>

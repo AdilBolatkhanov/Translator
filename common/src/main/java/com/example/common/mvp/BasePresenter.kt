@@ -2,8 +2,7 @@ package com.example.common.mvp
 
 import androidx.annotation.CallSuper
 
-abstract class BasePresenter<V : MvpView> : BaseViewModel(),
-    MvpPresenter<V> {
+abstract class BasePresenter<V : MvpView> : BaseViewModel(), MvpPresenter<V> {
 
     protected var view: V? = null
         private set

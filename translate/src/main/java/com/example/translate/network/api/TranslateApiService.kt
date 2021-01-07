@@ -8,9 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
-const val API_KEY =
-    "trnsl.1.1.20200526T082254Z.8a28012159f288e3.6d0d7009cc3016583841edfd2dbe3d6986c0e211"
+const val API_KEY = ""
 
 interface TranslateApiService {
 
